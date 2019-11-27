@@ -1,0 +1,12 @@
+# super user required to use docker 
+sudo: required
+services:
+  - docker
+
+# Steps needed before deploying
+before_install:
+  - docker build -t platymatt/docker-react -f Dockerfile.dev .
+
+# Tell TravisCI how to run tests 
+script:
+  - docker run -e CI=true platymatt/docker-react npm run test -- --coverage
