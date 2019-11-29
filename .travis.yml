@@ -10,3 +10,17 @@ before_install:
 # Tell TravisCI how to run tests 
 script:
   - docker run -e CI=true platymatt/docker-react npm run test -- --coverage
+
+# Deploy
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-213714441037"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
